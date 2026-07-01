@@ -6,9 +6,6 @@ stack: ["Godot 4", "GDScript"]
 role: "1인 개발"
 startDate: 2026-06-19
 order: 1                 # 목록 정렬 순서, 낮을수록 먼저
-links:
-  repo: ""   # 선택
-  demo: ""               # 선택
 ---
 
 
