@@ -8,7 +8,9 @@ const blog = defineCollection({
     date: z.date(),
     summary: z.string(),
     tags: z.array(z.string()).default([]),
-    // 어떤 프로젝트에 속한 기록인지 (projects 슬러그와 연결, 선택)
+    // 글의 성격 구분. 폴더 구조(src/content/blog/<category>/)와 짝을 맞춰 사용.
+    category: z.enum(['devlog', 'godot-notes', 'shader', 'blender']).default('devlog'),
+    // 어떤 프로젝트에 속한 기록인지 (projects 슬러그와 연결, 선택 — devlog 글에 주로 사용)
     project: z.string().optional(),
     draft: z.boolean().default(false),
   }),

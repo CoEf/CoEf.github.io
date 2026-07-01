@@ -3,6 +3,7 @@ title: "드래그앤드롭 아키텍처, DragBus에서 Mediator 패턴으로"
 date: 2026-06-20
 summary: "DragBus + 컴포넌트 조합 구조에서 DragDropManager 중심의 Mediator 패턴으로 리팩터링한 이유."
 tags: ["drag-and-drop", "refactor", "ui"]
+category: "devlog"
 project: "drag-drop-infra"
 ---
 

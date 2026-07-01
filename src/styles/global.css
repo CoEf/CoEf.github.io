@@ -11,10 +11,14 @@
   --line: #2a2e3a;
   --text: #e7e9ee;
   --muted: #8b90a0;
-  --signal: #6fe7c8;       /* primary accent — 연결된 시그널 와이어 색 */
+  --signal: #6fe7c8;       /* primary accent — 연결된 시그널 와이어 색 / devlog */
   --signal-dim: #6fe7c833;
-  --warn: #f2a65a;         /* secondary accent — 진행중 상태 표시 */
+  --warn: #f2a65a;         /* secondary accent — 진행중 상태 표시 / shader */
   --warn-dim: #f2a65a33;
+  --violet: #a99bf5;       /* godot-notes 카테고리 색 */
+  --violet-dim: #a99bf533;
+  --orange: #f28a5a;       /* blender 카테고리 색 */
+  --orange-dim: #f28a5a33;
 
   /* type */
   --font-display: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
@@ -126,14 +130,71 @@ code:not(pre code) {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--signal);
-  box-shadow: 0 0 0 3px var(--signal-dim);
+  background: var(--dot-color, var(--signal));
+  box-shadow: 0 0 0 3px var(--dot-dim, var(--signal-dim));
   flex-shrink: 0;
 }
 
 .node-label.warn .dot {
   background: var(--warn);
   box-shadow: 0 0 0 3px var(--warn-dim);
+}
+
+/* ── category tabs (devlog 목록 필터) ── */
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.category-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.category-tab .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dot-color, var(--muted));
+}
+
+.category-tab:hover {
+  color: var(--text);
+  border-color: var(--dot-color, var(--muted));
+}
+
+.category-tab.active {
+  color: var(--text);
+  border-color: var(--dot-color, var(--signal));
+  background: var(--dot-dim, transparent);
+}
+
+/* ── inline category badge (글 목록 항목 안) ── */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dot-color, var(--muted));
+}
+
+.category-badge .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dot-color, var(--muted));
 }
 
 /* ── signal wire: 세로로 흐르는 타임라인 선 ── */

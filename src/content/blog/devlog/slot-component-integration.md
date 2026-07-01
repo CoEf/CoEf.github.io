@@ -3,6 +3,7 @@ title: "SlotComponent로 인벤토리/장비/상점 통합하기"
 date: 2026-06-10
 summary: "InventoryComponent, EquipmentComponent, ShopComponent를 하나의 SlotComponent 추상화로 묶은 과정."
 tags: ["inventory", "component-architecture"]
+category: "devlog"
 project: "farming-inventory-system"
 ---
 

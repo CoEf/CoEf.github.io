@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DevlogEntry from '../../components/DevlogEntry.astro';
 import { withBase } from '../../utils/paths';
+import { CATEGORIES, CATEGORY_LIST } from '../../utils/categories';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -16,6 +17,20 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     <h1>개발 기록</h1>
     <p class="sub">진행 중인 작업, 아키텍처 노트, 트러블슈팅을 시간순으로 남깁니다.</p>
 
+    <nav class="category-tabs">
+      <a href={withBase('blog/')} class="category-tab active">전체</a>
+      {CATEGORY_LIST.map((c) => (
+        <a
+          href={withBase(`blog/category/${c}/`)}
+          class="category-tab"
+          style={`--dot-color: var(${CATEGORIES[c].colorVar}); --dot-dim: var(${CATEGORIES[c].dimVar});`}
+        >
+          <span class="dot"></span>
+          {CATEGORIES[c].label}
+        </a>
+      ))}
+    </nav>
+
     <div class="signal-line list">
       {posts.map((post, i) => (
         <DevlogEntry
@@ -24,6 +39,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
           date={post.data.date}
           summary={post.data.summary}
           tags={post.data.tags}
+          category={post.data.category}
           latest={i === 0}
         />
       ))}

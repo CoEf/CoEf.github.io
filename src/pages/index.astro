@@ -76,6 +76,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
           date={post.data.date}
           summary={post.data.summary}
           tags={post.data.tags}
+          category={post.data.category}
           latest={i === 0}
         />
       ))}

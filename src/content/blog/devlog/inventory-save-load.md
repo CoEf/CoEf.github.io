@@ -3,6 +3,7 @@ title: "인벤토리 저장/불러오기: Resource 기반 직렬화"
 date: 2026-06-30
 summary: "InventoryData를 Resource로 두고 ResourceSaver로 저장/로드를 구현한 기록."
 tags: ["save-load", "inventory"]
+category: "devlog"
 project: "farming-inventory-system"
 ---
 

@@ -1,14 +1,18 @@
 ---
+import { CATEGORIES, type Category } from '../utils/categories';
+
 interface Props {
   href: string;
   title: string;
   date: Date;
   summary: string;
   tags: string[];
+  category: Category;
   latest?: boolean;
 }
 
-const { href, title, date, summary, tags, latest = false } = Astro.props;
+const { href, title, date, summary, tags, category, latest = false } = Astro.props;
+const meta = CATEGORIES[category];
 const formatted = date.toLocaleDateString('ko-KR', {
   year: 'numeric',
   month: '2-digit',
@@ -17,7 +21,16 @@ const formatted = date.toLocaleDateString('ko-KR', {
 ---
 <div class:list={['signal-node', { latest }]}>
   <a href={href} class="entry">
-    <span class="date mono">{formatted}</span>
+    <div class="entry-top">
+      <span class="date mono">{formatted}</span>
+      <span
+        class="category-badge"
+        style={`--dot-color: var(${meta.colorVar}); --dot-dim: var(${meta.dimVar});`}
+      >
+        <span class="dot"></span>
+        {meta.label}
+      </span>
+    </div>
     <h3>{title}</h3>
     <p class="summary">{summary}</p>
     <div class="tags">
@@ -29,6 +42,12 @@ const formatted = date.toLocaleDateString('ko-KR', {
 <style>
   .entry {
     display: block;
+  }
+
+  .entry-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .date {

@@ -1,177 +1,185 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import { withBase } from "../utils/paths";
+import BaseLayout from './BaseLayout.astro';
+import { withBase } from '../utils/paths';
+import { CATEGORIES, type Category } from '../utils/categories';
 
 interface Props {
-    title: string;
-    date: Date;
-    tags: string[];
-    project?: string;
+  title: string;
+  date: Date;
+  tags: string[];
+  category: Category;
+  project?: string;
 }
 
-const { title, date, tags, project } = Astro.props;
-const formatted = date.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
+const { title, date, tags, category, project } = Astro.props;
+const meta = CATEGORIES[category];
+const formatted = date.toLocaleDateString('ko-KR', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
 });
 ---
-
 <BaseLayout title={title}>
-    <article class="post">
-        <a href={withBase("blog/")} class="back mono">← Devlog 목록</a>
+  <article class="post">
+    <a href={withBase('blog/')} class="back mono">← Devlog 목록</a>
 
-        <div class="node-label">
-            <span class="dot"></span>
-            DEVLOG_ENTRY
-        </div>
+    <div
+      class="node-label"
+      style={`--dot-color: var(${meta.colorVar}); --dot-dim: var(${meta.dimVar});`}
+    >
+      <span class="dot"></span>
+      {meta.label.toUpperCase()}
+    </div>
 
-        <h1>{title}</h1>
+    <h1>{title}</h1>
 
-        <div class="meta mono">
-            <span>{formatted}</span>
-            {project && <span class="project-ref">· {project}</span>}
-        </div>
+    <div class="meta mono">
+      <span>{formatted}</span>
+      {project && <span class="project-ref">· {project}</span>}
+    </div>
 
-        <div class="tags">
-            {tags.map((t) => <span class="tag">#{t}</span>)}
-        </div>
+    <div class="tags">
+      {tags.map((t) => <span class="tag">#{t}</span>)}
+    </div>
 
-        <div class="prose">
-            <slot />
-        </div>
-    </article>
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
 </BaseLayout>
 
 <style>
-    .post {
-        padding: 40px 0 60px;
-    }
+  .post {
+    padding: 40px 0 60px;
+  }
 
-    .back {
-        display: inline-block;
-        font-size: 13px;
-        color: var(--muted);
-        margin-bottom: 24px;
-    }
+  .back {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
 
-    .back:hover {
-        color: var(--signal);
-    }
+  .back:hover {
+    color: var(--signal);
+  }
 
-    h1 {
-        font-size: clamp(1.6rem, 4vw, 2.1rem);
-        margin: 14px 0 10px;
-    }
+  h1 {
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    margin: 14px 0 10px;
+  }
 
-    .meta {
-        font-size: 13px;
-        color: var(--muted);
-        margin-bottom: 14px;
-    }
+  .meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
 
-    .project-ref {
-        color: var(--signal);
-    }
+  .project-ref {
+    color: var(--signal);
+  }
 
-    .tags {
-        margin-bottom: 30px;
-    }
+  .tags {
+    margin-bottom: 30px;
+  }
 
-    .prose {
-        border-top: 1px solid var(--line);
-        padding-top: 30px;
-    }
+  .prose {
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
+  }
 
-    .prose :global(h2) {
-        font-size: 1.3rem;
-        margin: 2.2em 0 0.7em;
-    }
+  .prose :global(h2) {
+    font-size: 1.3rem;
+    margin: 2.2em 0 0.7em;
+  }
 
-    .prose :global(h3) {
-        font-size: 1.1rem;
-        margin: 1.8em 0 0.6em;
-    }
+  .prose :global(h3) {
+    font-size: 1.1rem;
+    margin: 1.8em 0 0.6em;
+  }
 
-    .prose :global(p) {
-        margin: 0 0 1.1em;
-        color: var(--text);
-    }
+  .prose :global(p) {
+    margin: 0 0 1.1em;
+    color: var(--text);
+  }
 
-    .prose :global(ul),
-    .prose :global(ol) {
-        margin: 0 0 1.1em;
-        padding-left: 1.3em;
-        color: var(--text);
-    }
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 1.1em;
+    padding-left: 1.3em;
+    color: var(--text);
+  }
 
-    .prose :global(li) {
-        margin-bottom: 0.4em;
-    }
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+  }
 
-    .prose :global(a) {
-        color: var(--signal);
-        text-decoration: underline;
-        text-underline-offset: 2px;
-    }
+  .prose :global(a) {
+    color: var(--signal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 
-    .prose :global(blockquote) {
-        border-left: 2px solid var(--signal);
-        margin: 1.4em 0;
-        padding: 0.2em 0 0.2em 1.2em;
-        color: var(--muted);
-    }
+  .prose :global(blockquote) {
+    border-left: 2px solid var(--signal);
+    margin: 1.4em 0;
+    padding: 0.2em 0 0.2em 1.2em;
+    color: var(--muted);
+  }
 
-    .prose :global(pre) {
-        margin: 1.4em 0;
-    }
+  .prose :global(pre) {
+    margin: 1.4em 0;
+  }
 
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.6em 0;
+    font-size: 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .prose :global(thead) {
+    background: var(--surface);
+  }
+
+  .prose :global(th) {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--signal);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+
+  .prose :global(td) {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .prose :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .prose :global(tbody tr:hover) {
+    background: var(--surface-hover);
+  }
+
+  .prose :global(table code) {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
     .prose :global(table) {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 1.6em 0;
-        font-size: 14px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        overflow: hidden;
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
     }
-
-    .prose :global(thead) {
-        background: var(--surface);
-    }
-
-    .prose :global(th) {
-        font-family: var(--font-mono);
-        font-size: 12px;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        color: var(--signal);
-        text-align: left;
-        padding: 10px 14px;
-        border-bottom: 1px solid var(--line);
-        white-space: nowrap;
-    }
-
-    .prose :global(td) {
-        padding: 10px 14px;
-        border-bottom: 1px solid var(--line);
-        color: var(--text);
-        vertical-align: top;
-    }
-
-    .prose :global(tr:last-child td) {
-        border-bottom: none;
-    }
-
-    .prose :global(tbody tr:hover) {
-        background: var(--surface-hover);
-    }
-
-    @media (max-width: 640px) {
-        .prose :global(table) {
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-    }
-</style>
+  }</style>
