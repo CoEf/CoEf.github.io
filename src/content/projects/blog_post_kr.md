@@ -1,8 +1,8 @@
 ---
 title: "PowerWash Simulator - with DrawableTexture2D"
-summary: ""
+summary: "DrawableTexture2D와 3D 역투영으로 UV 심 문제를 해결하며 PowerWash Simulator를 구현한 기록"
 status: "completed"   # in-progress | completed | archived
-stack: ["Godot 4", "GDScript"]
+stack: ["Godot 4", "GDScript", "GLSL"]
 role: "1인 개발"
 startDate: 2026-06-19
 order: 1                 # 목록 정렬 순서, 낮을수록 먼저
