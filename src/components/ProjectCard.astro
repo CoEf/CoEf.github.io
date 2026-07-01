@@ -1,0 +1,59 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  status: 'in-progress' | 'completed' | 'archived';
+  stack: string[];
+}
+
+const { href, title, summary, status, stack } = Astro.props;
+
+const statusLabel = {
+  'in-progress': '진행중',
+  completed: '완료',
+  archived: '보관',
+};
+---
+<a href={href} class="pin-card card">
+  <div class="card-top">
+    <h3>{title}</h3>
+    <span class:list={['status-badge', status]}>{statusLabel[status]}</span>
+  </div>
+  <p class="summary">{summary}</p>
+  <div class="stack">
+    {stack.map((s) => <span class="tag">{s}</span>)}
+  </div>
+</a>
+
+<style>
+  .card {
+    display: block;
+    margin: 0 6px;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 1.02rem;
+    color: var(--text);
+  }
+
+  .summary {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+  }
+</style>

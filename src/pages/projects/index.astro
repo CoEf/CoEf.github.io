@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { withBase } from '../../utils/paths';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<BaseLayout title="Projects" description="포트폴리오 프로젝트 목록">
+  <section class="page">
+    <div class="node-label">
+      <span class="dot"></span>
+      PROJECTS
+    </div>
+    <h1>프로젝트</h1>
+    <p class="sub">Godot 4 / GDScript로 만든 게임 시스템과 툴입니다.</p>
+
+    <div class="project-grid">
+      {projects.map((p) => (
+        <ProjectCard
+          href={withBase(`projects/${p.slug}/`)}
+          title={p.data.title}
+          summary={p.data.summary}
+          status={p.data.status}
+          stack={p.data.stack}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 44px 0 60px;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    margin: 14px 0 8px;
+  }
+
+  .sub {
+    color: var(--muted);
+    font-size: 14.5px;
+    margin: 0 0 36px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 0 -6px;
+  }
+</style>
