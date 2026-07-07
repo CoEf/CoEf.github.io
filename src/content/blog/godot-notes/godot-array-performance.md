@@ -1,8 +1,9 @@
 ---
 title: "Godot Array는 왜 앞에서 빼면 느릴까 — std::vector와 pop_front()의 함정"
-description: "Godot의 Array가 C++ std::vector 기반으로 구현된 이유와, pop_front() / remove_at(0)가 성능에 미치는 영향을 실측 데이터와 함께 정리한다."
-pubDate: 2026-07-01
+date: 2026-07-01
+summary: "Godot의 Array가 C++ std::vector 기반으로 구현된 이유와, pop_front() / remove_at(0)가 성능에 미치는 영향을 실측 데이터와 함께 정리한다."
 tags: ["Godot", "GDScript", "Performance", "Data Structure"]
+category: "godot-notes"
 draft: false
 ---
 

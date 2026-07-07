@@ -1,8 +1,9 @@
 ---
 title: "오브젝트 풀링, Unity(C#)와 Godot에서 왜 다르게 작동하는가"
-description: "C# 가비지 컬렉터가 프레임 드랍을 일으키는 원리와, Godot이 GC 대신 참조 카운팅을 쓰는 이유, 그리고 이 차이가 오브젝트 풀링의 효과에 어떤 영향을 주는지 정리한다."
-pubDate: 2026-07-01
+date: 2026-07-01
+summary: "C# 가비지 컬렉터가 프레임 드랍을 일으키는 원리와, Godot이 GC 대신 참조 카운팅을 쓰는 이유, 그리고 이 차이가 오브젝트 풀링의 효과에 어떤 영향을 주는지 정리한다."
 tags: ["Godot", "GDScript", "C#", "Performance", "Memory Management"]
+category: "devlog"
 draft: false
 ---
 
