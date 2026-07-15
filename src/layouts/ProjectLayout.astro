@@ -149,6 +149,23 @@ const formatted = startDate.toLocaleDateString('ko-KR', {
     margin: 1.4em 0;
   }
 
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.4em auto;
+    border-radius: var(--radius);
+  }
+
+  /* image caption: a paragraph whose only content is a single *em* run */
+  .prose :global(p:has(> em:only-child)) {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: -1em;
+    margin-bottom: 1.4em;
+  }
+
   .prose :global(table) {
     width: 100%;
     border-collapse: collapse;
