@@ -35,25 +35,35 @@ Godot 4.7 변경 로그에서 `DrawableTexture2D`를 처음 봤습니다. GPU에
 
 씬은 `main.tscn` 하나, 스크립트는 `painter_controller.gd` 하나만 씬에 미리 붙어 있습니다. 나머지는 전부 실행 시점에 코드로 생성됩니다.
 
-```
-Main (Node3D) — painter_controller.gd          ◀ 입력을 받고 "언제" 할지만 결정
-│
-├─ _ready()에서 동적으로 생성되는 컴포넌트
-│   ├── PaintCanvasComponent     — 텍스처 3장(albedo/normal/orm) 소유, 실제 블릿 실행
-│   ├── SurfacePickerComponent   — 화면 좌표 → UV / 3D 위치 변환
-│   ├── BrushComponent           — 현재 브러시·마스크·크기·불투명도 상태
-│   ├── CursorComponent          — 3D 커서 표시
-│   └── PainterUIComponent       — 스와치·슬라이더·라벨 표시, 사용자 입력을 시그널로 보고
-│
-├── OrbitCamera                  — 궤도 카메라 (입력을 직접 읽지 않고 API로만 구동)
-├── Plushy (칠할 대상 3D 모델)     — material_override: ORMMaterial3D + DrawableTexture2D × 3
-│
-├── 데이터 리소스
-│   ├── BrushSet   — 브러시 1개 = PBR 텍스처 5장 묶음 (albedo/normal/ao/roughness/metallic)
-│   └── BrushMask  — 마스크 1개 = 마스크 텍스처 + 원형 블렌드 여부
-│
-└── draw.gdshader (texture_blit 셰이더) — 브러시 스탬프를 실제로 픽셀에 굽는 곳
-```
+<div class="tree">
+  <div class="tree-root">
+    <span class="tree-root-name">Main <em>(Node3D)</em></span>
+    <span class="tree-root-file">painter_controller.gd</span>
+    <span class="tree-desc">입력을 받고 "언제" 할지만 결정</span>
+  </div>
+  <ul>
+    <li>
+      <span class="tree-node">_ready()에서 동적으로 생성되는 컴포넌트</span>
+      <ul>
+        <li><code>PaintCanvasComponent</code><span class="tree-desc">텍스처 3장(albedo/normal/orm) 소유, 실제 블릿 실행</span></li>
+        <li><code>SurfacePickerComponent</code><span class="tree-desc">화면 좌표 → UV / 3D 위치 변환</span></li>
+        <li><code>BrushComponent</code><span class="tree-desc">현재 브러시·마스크·크기·불투명도 상태</span></li>
+        <li><code>CursorComponent</code><span class="tree-desc">3D 커서 표시</span></li>
+        <li><code>PainterUIComponent</code><span class="tree-desc">스와치·슬라이더·라벨 표시, 사용자 입력을 시그널로 보고</span></li>
+      </ul>
+    </li>
+    <li><code>OrbitCamera</code><span class="tree-desc">궤도 카메라 (입력을 직접 읽지 않고 API로만 구동)</span></li>
+    <li><code>Plushy</code><span class="tree-desc">칠할 대상 3D 모델 · material_override: ORMMaterial3D + DrawableTexture2D × 3</span></li>
+    <li>
+      <span class="tree-node">데이터 리소스</span>
+      <ul>
+        <li><code>BrushSet</code><span class="tree-desc">브러시 1개 = PBR 텍스처 5장 묶음 (albedo/normal/ao/roughness/metallic)</span></li>
+        <li><code>BrushMask</code><span class="tree-desc">마스크 1개 = 마스크 텍스처 + 원형 블렌드 여부</span></li>
+      </ul>
+    </li>
+    <li><code>draw.gdshader</code><span class="tree-desc">texture_blit 셰이더 · 브러시 스탬프를 실제로 픽셀에 굽는 곳</span></li>
+  </ul>
+</div>
 
 핵심 원칙은 하나입니다.
 
