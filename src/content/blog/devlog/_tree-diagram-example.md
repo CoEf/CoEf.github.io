@@ -23,7 +23,7 @@ draft: false
   </div>
   <ul>
     <li>
-      <span class="tree-node">동적으로 생성되는 컴포넌트</span>
+      <span class="tree-node">동적 컴포넌트</span>
       <span class="tree-desc">_ready()에서 생성</span>
       <ul>
         <li><code>PaintCanvasComponent</code><span class="tree-desc">텍스처 3장 소유, 블릿 실행</span></li>
@@ -33,8 +33,13 @@ draft: false
         <li><code>PainterUIComponent</code><span class="tree-desc">UI 표시, 입력을 시그널로 보고</span></li>
       </ul>
     </li>
-    <li><code>OrbitCamera</code><span class="tree-desc">API로만 구동</span></li>
-    <li><code>Plushy</code><span class="tree-desc">칠할 대상 · ORMMaterial3D + Drawable×3</span></li>
+    <li>
+      <span class="tree-node">씬 노드</span>
+      <ul>
+        <li><code>OrbitCamera</code><span class="tree-desc">API로만 구동</span></li>
+        <li><code>Plushy</code><span class="tree-desc">칠할 대상 · ORMMaterial3D + Drawable×3</span></li>
+      </ul>
+    </li>
     <li>
       <span class="tree-node">데이터 리소스</span>
       <ul>
@@ -42,7 +47,12 @@ draft: false
         <li><code>BrushMask</code><span class="tree-desc">마스크 텍스처 + 원형 블렌드 여부</span></li>
       </ul>
     </li>
-    <li><code>draw.gdshader</code><span class="tree-desc">texture_blit · 픽셀에 굽는 곳</span></li>
+    <li>
+      <span class="tree-node">렌더링</span>
+      <ul>
+        <li><code>draw.gdshader</code><span class="tree-desc">texture_blit · 픽셀에 굽는 곳</span></li>
+      </ul>
+    </li>
   </ul>
 </div>
 ```
@@ -56,7 +66,7 @@ draft: false
   </div>
   <ul>
     <li>
-      <span class="tree-node">동적으로 생성되는 컴포넌트</span>
+      <span class="tree-node">동적 컴포넌트</span>
       <span class="tree-desc">_ready()에서 생성</span>
       <ul>
         <li><code>PaintCanvasComponent</code><span class="tree-desc">텍스처 3장 소유, 블릿 실행</span></li>
@@ -66,8 +76,13 @@ draft: false
         <li><code>PainterUIComponent</code><span class="tree-desc">UI 표시, 입력을 시그널로 보고</span></li>
       </ul>
     </li>
-    <li><code>OrbitCamera</code><span class="tree-desc">API로만 구동</span></li>
-    <li><code>Plushy</code><span class="tree-desc">칠할 대상 · ORMMaterial3D + Drawable×3</span></li>
+    <li>
+      <span class="tree-node">씬 노드</span>
+      <ul>
+        <li><code>OrbitCamera</code><span class="tree-desc">API로만 구동</span></li>
+        <li><code>Plushy</code><span class="tree-desc">칠할 대상 · ORMMaterial3D + Drawable×3</span></li>
+      </ul>
+    </li>
     <li>
       <span class="tree-node">데이터 리소스</span>
       <ul>
@@ -75,6 +90,11 @@ draft: false
         <li><code>BrushMask</code><span class="tree-desc">마스크 텍스처 + 원형 블렌드 여부</span></li>
       </ul>
     </li>
-    <li><code>draw.gdshader</code><span class="tree-desc">texture_blit · 픽셀에 굽는 곳</span></li>
+    <li>
+      <span class="tree-node">렌더링</span>
+      <ul>
+        <li><code>draw.gdshader</code><span class="tree-desc">texture_blit · 픽셀에 굽는 곳</span></li>
+      </ul>
+    </li>
   </ul>
 </div>
