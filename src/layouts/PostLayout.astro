@@ -8,7 +8,7 @@ interface Props {
   date: Date;
   tags: string[];
   category: Category;
-  project?: string;
+  project?: { title: string; href: string };
 }
 
 const { title, date, tags, category, project } = Astro.props;
@@ -35,7 +35,7 @@ const formatted = date.toLocaleDateString('ko-KR', {
 
     <div class="meta mono">
       <span>{formatted}</span>
-      {project && <span class="project-ref">· {project}</span>}
+      {project && <a href={project.href} class="project-ref">· {project.title}</a>}
     </div>
 
     <div class="tags">
@@ -77,6 +77,12 @@ const formatted = date.toLocaleDateString('ko-KR', {
 
   .project-ref {
     color: var(--signal);
+    text-decoration: none;
+  }
+
+  .project-ref:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .tags {

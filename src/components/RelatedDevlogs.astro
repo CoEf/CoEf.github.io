@@ -1,0 +1,176 @@
+---
+import { CATEGORIES, type Category } from '../utils/categories';
+
+interface Entry {
+  href: string;
+  title: string;
+  date: Date;
+  summary: string;
+  category: Category;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+
+const groups = entries
+  .reduce<{ year: number; items: Entry[] }[]>((acc, entry) => {
+    const year = entry.date.getFullYear();
+    const group = acc.find((g) => g.year === year);
+    if (group) {
+      group.items.push(entry);
+    } else {
+      acc.push({ year, items: [entry] });
+    }
+    return acc;
+  }, [])
+  .sort((a, b) => b.year - a.year);
+---
+{entries.length > 0 && (
+  <section class="related-devlogs">
+    <div class="node-label warn">
+      <span class="dot"></span>
+      RELATED_DEVLOG
+    </div>
+    <h2>관련 Devlog</h2>
+
+    {groups.map((group) => (
+      <div class="year-group">
+        <h3 class="year mono">{group.year}</h3>
+        <div class="card-grid">
+          {group.items.map((entry) => {
+            const meta = CATEGORIES[entry.category];
+            const formatted = entry.date.toLocaleDateString('ko-KR', {
+              month: '2-digit',
+              day: '2-digit',
+            });
+            return (
+              <a href={entry.href} class="devlog-card">
+                <div class="card-meta">
+                  <span class="date mono">{formatted}</span>
+                  <span
+                    class="category-badge"
+                    style={`--dot-color: var(${meta.colorVar}); --dot-dim: var(${meta.dimVar});`}
+                  >
+                    <span class="dot"></span>
+                    {meta.label}
+                  </span>
+                </div>
+                <div class="card-body">
+                  <h4>{entry.title}</h4>
+                  <p class="summary">{entry.summary}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    ))}
+  </section>
+)}
+
+<style>
+  .related-devlogs {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    font-size: 1.15rem;
+    margin: 10px 0 22px;
+  }
+
+  .year-group {
+    margin-bottom: 26px;
+  }
+
+  .year-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .year {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .devlog-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 16px 22px;
+    transition: border-color 0.15s ease;
+  }
+
+  .devlog-card:hover {
+    border-color: var(--signal);
+  }
+
+  .devlog-card:hover h4 {
+    color: var(--signal);
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    width: 150px;
+  }
+
+  .date {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .card-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  h4 {
+    font-size: 0.95rem;
+    color: var(--text);
+    margin: 0 0 4px;
+  }
+
+  .summary {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 560px) {
+    .devlog-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .card-meta {
+      width: auto;
+    }
+
+    .summary {
+      white-space: normal;
+    }
+  }
+</style>

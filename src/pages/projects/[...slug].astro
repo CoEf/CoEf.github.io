@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { withBase } from '../../utils/paths';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -12,6 +13,16 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
+
+const relatedDevlogs = (await getCollection('blog', (d) => !d.data.draft && d.data.project === project.slug))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => ({
+    href: withBase(`blog/${post.slug}/`),
+    title: post.data.title,
+    date: post.data.date,
+    summary: post.data.summary,
+    category: post.data.category,
+  }));
 ---
 <ProjectLayout
   title={project.data.title}
@@ -20,6 +31,7 @@ const { Content } = await project.render();
   role={project.data.role}
   startDate={project.data.startDate}
   links={project.data.links}
+  relatedDevlogs={relatedDevlogs}
 >
   <Content />
 </ProjectLayout>

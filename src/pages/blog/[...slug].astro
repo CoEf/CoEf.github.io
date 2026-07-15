@@ -1,6 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import PostLayout from '../../layouts/PostLayout.astro';
+import { withBase } from '../../utils/paths';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -12,13 +13,15 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+const project = post.data.project ? await getEntry('projects', post.data.project) : undefined;
 ---
 <PostLayout
   title={post.data.title}
   date={post.data.date}
   tags={post.data.tags}
   category={post.data.category}
-  project={post.data.project}
+  project={project && { title: project.data.title, href: withBase(`projects/${project.slug}/`) }}
 >
   <Content />
 </PostLayout>
